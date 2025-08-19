@@ -1,0 +1,58 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#root {
+  height: 100vh;
+}
+
+#wrapper-box {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Lato', 'Saira', 'Oxygen', 'Raleway', 'Arial', 'Sirin Stencil', 'Londrina Shadow', 'Bungee Shade', 'Caveat', 'Satisfy';
+  padding: 0;
+}
+
+img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.styled {
+  border: 2px solid #2979ff;
+}
+
+pre {
+  white-space: pre-wrap;
+  /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+/*# sourceMappingURL=main.css.map */

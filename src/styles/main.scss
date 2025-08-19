@@ -1,0 +1,60 @@
+
+// Globally set box-sizing to border-box
+* {
+  box-sizing: border-box;
+}
+
+// Sets the height to 100vh in index.js
+#root {
+  height: 100vh;
+}
+
+// In App.js, sets the exterior box to take up a minimum of the full screen
+#wrapper-box {
+  min-height: 100%;
+}
+
+// HTML Body Pre-sets, body element occurs in Index.html
+body {
+  margin: 0;
+  font-family: 'Lato', 'Saira', 'Oxygen', 'Raleway', 'Arial', 'Sirin Stencil', 'Londrina Shadow', 'Bungee Shade', 'Caveat', 'Satisfy';
+  padding: 0;
+}
+
+// Images have slightly rounded corners
+img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+// Selecting non-colors on different form options
+.styled {
+  border: 2px solid #2979ff;
+}
+
+// Typography to recognize new lines
+pre {
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+// Links within text
+a {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// So that textfields of type 'Number' won't have up/down arrows on the right side
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
