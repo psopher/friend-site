@@ -73,9 +73,9 @@ const Home = () => {
           >
             <Box 
               component='img' 
-              src={ariHeadshot} 
+              // src={ariHeadshot} 
               // src={sunnyHammock} 
-              // src={logoRainbow} 
+              src={logoRainbow} 
               alt='Headshot' 
               sx={{ 
                 height: width > 299 ? 220 : 175, 
@@ -101,7 +101,7 @@ const Home = () => {
               color: pjsGreen,
             }}
           >
-            Ari Heistein
+            Name
           </Typography>
 
           {/* Title */}
