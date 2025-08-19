@@ -55,7 +55,7 @@ const Footer = () => {
             fontWeight: 'bold',
           }}
         >
-          name.name@gmail.com
+          ari.heistein@gmail.com
         </Typography>
 
         {/* Social Media Buttons */}
