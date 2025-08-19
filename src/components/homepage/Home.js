@@ -9,6 +9,7 @@ import { Link } from '@mui/material'
 import Slide from '@mui/material/Slide'
 
 // Assets
+import logoRainbow from '../../assets/logo-rainbow.png'
 import ariHeadshot from '../../assets/ari-espresso.png'
 
 
@@ -71,7 +72,8 @@ const Home = () => {
           >
             <Box 
               component='img' 
-              src={ariHeadshot} 
+              // src={ariHeadshot} 
+              src={logoRainbow} 
               alt='Headshot' 
               sx={{ 
                 height: width > 299 ? 220 : 175, 
@@ -97,7 +99,7 @@ const Home = () => {
               color: pjsGreen,
             }}
           >
-            Ari Heistein
+            Name Name
           </Typography>
 
           {/* Title */}
