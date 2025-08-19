@@ -11,6 +11,7 @@ import Slide from '@mui/material/Slide'
 // Assets
 import logoRainbow from '../../assets/logo-rainbow.png'
 import ariHeadshot from '../../assets/ari-espresso.png'
+import sunnyHammock from '../../assets/sunny-hammock.png'
 
 
 // Helpers
@@ -73,6 +74,7 @@ const Home = () => {
             <Box 
               component='img' 
               src={ariHeadshot} 
+              // src={sunnyHammock} 
               // src={logoRainbow} 
               alt='Headshot' 
               sx={{ 
