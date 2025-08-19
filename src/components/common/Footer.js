@@ -14,7 +14,7 @@ import useWindowDimensions from '../../helpers/windowDimensions.js'
 // import { seoPageTags, customAnalyticsEvent } from '../../helpers/analytics'
 
 // Footer
-const Footer = () => {
+const Footer = ({ contact = 'email@email.com', viewIndex = 0}) => {
 
   // use Naviage
   const navigate = useNavigate()
@@ -47,16 +47,18 @@ const Footer = () => {
       >
 
         {/* Contact */}
-        <Typography
-          sx={{
-            pb: width < positionChangeWidthSm ? 1 : 0,
-            color: 'whitesmoke',
-            // color: pjsBlue,
-            fontWeight: 'bold',
-          }}
-        >
-          email@gmail.com
-        </Typography>
+        {viewIndex === 0 &&
+          <Typography
+            sx={{
+              pb: width < positionChangeWidthSm ? 1 : 0,
+              color: 'whitesmoke',
+              // color: pjsBlue,
+              fontWeight: 'bold',
+            }}
+          >
+            {contact}
+          </Typography>
+        }
 
         {/* Social Media Buttons */}
         {/* {socialMediaButtons('row', 'center', 'center', 0, true)} */}

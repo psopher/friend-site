@@ -2,6 +2,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ReactHtmlParser from 'react-html-parser'
 
+import Footer from '../common/Footer.js'
+import PageNavbar from '../common/PageNavbar.js'
+
+
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -33,19 +37,18 @@ const Home = () => {
   // Window Dimensions
   const { height, width } = useWindowDimensions()
 
+  // States
+  const [viewIndex, setViewIndex] = useState(0)
 
 
-  return (
-    <>
-      {/* Helmet — for analytics, seo, and page title changing */}
-      {/* {seoPageTags(
-        'Home'
-      )} */}
 
-      {/* Body */}
+  // Homepage Body JSX
+  const homepageBodyJSX = () => {
+    return (
       <Box 
         sx={{ 
           minHeight: `calc(100vh - ${navbarHeight} - ${footerHeight})`, 
+          // minHeight: `calc(100vh - ${navbarHeight})`, 
           width: '100vw', 
           backgroundColor: 'whitesmoke',
           display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', 
@@ -130,10 +133,116 @@ const Home = () => {
             ...Very gay
           </Typography>
 
+          {/* Contact */}
+          {/* <Typography
+            textAlign={'center'}
+            sx={{
+              mt: 3, mb: 0, width: '90%', 
+              fontSize: '16px',
+              fontWeight: 'bold',
+              color: 'black',
+            }}
+          >
+            (email@email.com)
+          </Typography> */}
+
         </Box>
 
         
       </Box>
+    )
+  }
+
+
+  const handleCancelPressed = () => {
+    setViewIndex(0)
+  }
+
+  const handleSubmitPressed = () => {
+    setViewIndex(0)
+  }
+
+  const changeFeaturedPersonViewJSX = () => {
+    return (
+      <Box 
+        sx={{ 
+          py: 2,
+          minHeight: `calc(100vh - ${navbarHeight} - ${footerHeight})`, 
+          // minHeight: `calc(100vh - ${navbarHeight})`, 
+          width: '100vw', 
+          backgroundColor: 'whitesmoke',
+          display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', 
+        }}
+      >
+
+
+        {/* Submit and Cancel Buttons */}
+        <Box
+          sx={{
+            width: '100%',
+            // maxWidth: '250px',
+            display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+          }}
+        >
+          {/* Cancel */}
+          {standardButton(
+            'Cancel',
+            'button',
+            'contained',
+            false,
+            'warning',
+            0,
+            0,
+            1,
+            '85px',
+            '50px',
+            handleCancelPressed
+          )}
+
+          {/* Submit */}
+          {standardButton(
+            'Submit',
+            'button',
+            'contained',
+            true,
+            'secondary',
+            0,
+            0,
+            1,
+            '85px',
+            '50px',
+            handleSubmitPressed
+          )}
+
+        </Box>
+      </Box>
+    )
+  }
+
+  return (
+    <>
+      {/* Helmet — for analytics, seo, and page title changing */}
+      {/* {seoPageTags(
+        'Home'
+      )} */}
+
+      {/* Navbar */}
+      <PageNavbar viewIndex={viewIndex} setViewIndex={setViewIndex} />
+
+      {/* Body */}
+
+      {/* Main homepage body */}
+      {viewIndex === 0 && homepageBodyJSX()}
+
+      {/* Change Featured Person View */}
+      {viewIndex === 1 && 
+        changeFeaturedPersonViewJSX()
+      }
+
+
+
+      {/* Footer */}
+      <Footer contact={'email@email.com'} viewIndex={viewIndex}/>
     </>
   )
 }

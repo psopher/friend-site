@@ -12,9 +12,9 @@ import { positionChangeWidthSm } from '../../helpers/variableDefaults'
 const Layout = () => {
   return (
     <>
-      <PageNavbar />
+      {/* <PageNavbar /> */}
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

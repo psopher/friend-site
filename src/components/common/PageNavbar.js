@@ -17,9 +17,17 @@ import logoRainbow from '../../assets/logo-rainbow.png'
 // Helper methods
 import { navbarHeight, navbarBgDefaultColor, positionChangeWidthSm } from '../../helpers/variableDefaults'
 import useWindowDimensions from '../../helpers/windowDimensions'
+import { standardButton } from '../../helpers/buttons'
+import { dummyBoxWidth } from '../../helpers/globalHelpers'
 
 // The navbar appears at the top of the website on all pages except for unwrap views
-const PageNavbar  = () => {
+const PageNavbar  = (props) => {
+
+  const { viewIndex, setViewIndex } = props
+
+  const handleChangeFeaturedPerson = () => {
+    setViewIndex(1)
+  }
 
   return (
     <>
@@ -50,6 +58,26 @@ const PageNavbar  = () => {
               </Box>
 
             </Box>
+
+            {/* Change Featured Person Button */}
+            {standardButton(
+              `Change Featured Person`,
+              'button',
+              'contained',
+              viewIndex !== 0,
+              'secondary',
+              0,
+              0,
+              0,
+              '225px',
+              '50px',
+              handleChangeFeaturedPerson,
+            )}
+
+
+            {/* Dummy Box */}
+            {/* {dummyBoxWidth('50px')} */}
+
             
           </Toolbar>
         </Box>
