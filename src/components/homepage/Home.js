@@ -76,8 +76,8 @@ const Home = () => {
             // Authorization: `Bearer ${getTokenFromLocalStorage()}`,
           },
         })
-        console.log('retrievedFeaturedPersonsArray ->', retrievedFeaturedPersonsArray)
-        console.log('retrievedFeaturedPersonsArray length ->', retrievedFeaturedPersonsArray.length)
+        // console.log('retrievedFeaturedPersonsArray ->', retrievedFeaturedPersonsArray)
+        // console.log('retrievedFeaturedPersonsArray length ->', retrievedFeaturedPersonsArray.length)
 
         if (
           (
@@ -244,7 +244,7 @@ const Home = () => {
   }
 
   const resetLoadingAndErrors = () => {
-    console.log('resetLoadingAndErrors')
+    // console.log('resetLoadingAndErrors')
   }
 
   // const handleUploadImagePressed = () => {
@@ -348,14 +348,14 @@ const Home = () => {
 
     // Create Cropped Image
     const newMediaObj = await createCroppedImage()
-    console.log('newMediaObj ->', newMediaObj)
+    // console.log('newMediaObj ->', newMediaObj)
     if (
       'squareCropFile' in newMediaObj
       && newMediaObj.squareCropFile.size > 0
     ) {
       squareCropFileExists = true
     }
-    console.log('squareCropFileExists ->', squareCropFileExists)
+    // console.log('squareCropFileExists ->', squareCropFileExists)
     
 
     // ? Process Payment
@@ -363,7 +363,7 @@ const Home = () => {
       showPayments
       && squareCropFileExists
     ) {
-      console.log('processing payment')
+      // console.log('processing payment')
 
       paymentProcessed = true
     }
@@ -373,19 +373,19 @@ const Home = () => {
       paymentProcessed
       && squareCropFileExists
     ) {
-      console.log('updating image')
-      console.log('imageUpdated 1 ->', imageUpdated)
+      // console.log('updating image')
+      // console.log('imageUpdated 1 ->', imageUpdated)
 
       // Updating the image in AWS
       try {
         const updatedMedia = await updateAWSFileAtURL(newMediaObj)
         imageUpdated = updatedMedia.updateSuccessful
-        console.log('imageUpdated 2 ->', imageUpdated)
+        // console.log('imageUpdated 2 ->', imageUpdated)
       } catch (err) {
         console.log('image update error ->', err)
       }
     }
-    console.log('imageUpdated 3 ->', imageUpdated)
+    // console.log('imageUpdated 3 ->', imageUpdated)
 
 
     // ? Update Featured Person in Database
@@ -393,7 +393,7 @@ const Home = () => {
       paymentProcessed
       && imageUpdated
     ) {
-      console.log('updating featured person in database')
+      // console.log('updating featured person in database')
 
       try {
         await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/congratulations/${process.env.REACT_APP_FEATURED_PERSON_ID}`, newFeaturedPerson, {

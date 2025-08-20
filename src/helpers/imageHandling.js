@@ -237,15 +237,13 @@ export const updateAWSFileAtURL = async (updatedMediaItemObj) => {
 
       // Upload data to server, retrieve a reserved image URL from the AWS S3 bucket
       // const { data } = await axios.put(`/api/awsImageURL`, requestObject, {
-      console.log(process.env.REACT_APP_SERVER_URL)
-      console.log(`${process.env.REACT_APP_SERVER_URL}/api/aws-update-image`)
       const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/aws-update-image`, formData, {
         headers: {
           // Authorization: `Bearer ${getTokenFromLocalStorage()}`,
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log('data ->', data)
+      // console.log('data ->', data)
 
       return data
 
