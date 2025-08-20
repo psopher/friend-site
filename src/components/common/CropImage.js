@@ -171,7 +171,7 @@ const CropImage = ({ updatedMediaItemObj, setUpdatedMediaItemObj, resetLoadingAn
           }}
         >
           {/* Title */}
-          <Box
+          {/* <Box
             sx={{
               mb: 1,
               width: '100%',
@@ -189,7 +189,7 @@ const CropImage = ({ updatedMediaItemObj, setUpdatedMediaItemObj, resetLoadingAn
             >
               {'Crop'}
             </Typography>
-          </Box>
+          </Box> */}
           
           <Box
             sx={{

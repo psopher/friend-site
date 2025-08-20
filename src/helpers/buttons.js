@@ -85,6 +85,39 @@ export const arrowElement = (type, disabled, clickHandler, arrowBgColor = 'white
   )
 }
 
+
+
+// Add new Image Button — button with text inside that's intertwined with an add image label/Input
+export const addImageWithTextButton = (buttonText, id, name, variant, color, disabled, changeHandler, buttonHeight, buttonWidth, marginBottom) => {
+  return (
+    <label htmlFor={id}>
+      <Input 
+        id={id} 
+        name={name} 
+        className={name} 
+        // accept="image/*" 
+        accept="image/*" 
+        type="file" 
+        // multiple
+        onChange={changeHandler}
+      />
+      <Button 
+        variant={variant}
+        component="span" 
+        color={color}
+        disabled={disabled}
+        sx={{ 
+          mb: marginBottom,
+          height: buttonHeight,
+          width: buttonWidth,
+        }}
+      >
+        {buttonText}
+      </Button>
+    </label>
+  )
+}
+
 // Social Media Buttons Elements
 export const socialMediaButtons = (flexDirection = 'row', justifyContent = 'flex-end', alignItems = 'center', bottomMargin = 0, fromFooter = false) => {
   return (
