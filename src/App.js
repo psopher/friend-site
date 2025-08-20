@@ -14,11 +14,23 @@ import Home from './components/homepage/Home'
 import getDesignTokens from './helpers/theme.js' //MUI theming presets
 import { createTheme, ThemeProvider } from '@mui/material/styles' //MUI theme creator functions/components
 import Box from '@mui/material/Box'
+import { priceForChange } from './helpers/variableDefaults.js'
 
+// Stripe
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_SECRET_KEY)
 
 const App = () => {
   // Helmet Context
   const helmetContext = {}
+
+  // Stripe Options
+  const [stripePaymentForm, setStripePaymentForm] = useState({
+    amount: priceForChange * 100,
+    currency: 'usd',
+    mode: 'payment',
+  })
 
   return (
     // HelmetProvider must go around everything in order to use dynamic helmets
@@ -35,24 +47,29 @@ const App = () => {
 
             {/* Scroll to top automatically every time route changes */}
             <ScrollToTop />
+
+            {/* Stripe Elements */}
+            <Elements options={stripePaymentForm} stripe={stripePromise}>
                 
-            {/* The Website */}
-            <Routes>
+              {/* The Website */}
+              <Routes>
 
-              {/* No Navbar Routes */}
+                {/* No Navbar Routes */}
 
-              {/* Navbar In "Layout"; Navbar only appears for routes that are children of this Route */}
-              <Route element={<Layout />}> 
+                {/* Navbar In "Layout"; Navbar only appears for routes that are children of this Route */}
+                <Route element={<Layout />}> 
 
-                {/* Homepage */}
-                <Route path="/" element={<Home />} />
+                  {/* Homepage */}
+                  <Route path="/" element={<Home stripePaymentForm={stripePaymentForm} setStripePaymentForm={setStripePaymentForm} />} />
 
-                {/* Not Found; this path matches any path specified, so it needs to come last */}
-                <Route path="*" element={<NotFound />} />
+                  {/* Not Found; this path matches any path specified, so it needs to come last */}
+                  <Route path="*" element={<NotFound />} />
 
-              </Route>
+                </Route>
 
-            </Routes>
+              </Routes>
+            
+            </Elements>
                 
           </BrowserRouter>
         </Box>

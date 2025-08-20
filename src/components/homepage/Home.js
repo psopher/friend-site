@@ -8,6 +8,7 @@ import axios from 'axios'
 import Footer from '../common/Footer.js'
 import PageNavbar from '../common/PageNavbar.js'
 import CropImage from '../common/CropImage.js'
+import Payment from '../common/Payment.js'
 
 
 // MUI
@@ -34,16 +35,25 @@ import { spin, rock, shakeX, shakeY } from '../../helpers/keyframeAnimations.js'
 import { fileToDataURL, getStartCropImageWidthsAndHeights, updateAWSFileAtURL, returnCroppedImage, urlToImageFile } from '../../helpers/imageHandling.js'
 import { circularSpinnerWithText } from '../../helpers/spinners.js'
 
+// Stripe
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+
 // import { seoPageTags, customAnalyticsEvent } from '../../helpers/analytics.js'
 
 // Home Page
-const Home = () => {
+const Home = (props) => {
+
+  const { stripePaymentForm, setStripePaymentForm } = props
 
   // use Naviage
   const navigate = useNavigate()
 
   // Window Dimensions
   const { height, width } = useWindowDimensions()
+
+  // Stripe
+  const stripe = useStripe()
+  const elements = useElements()
 
   // States
   const [viewIndex, setViewIndex] = useState(0)
@@ -114,7 +124,7 @@ const Home = () => {
   useEffect(() => {
     // console.log('videoThumbnail useEffect runs')
 
-  }, [updatedMediaItemObj, newFeaturedPerson, loading, errors, loadingPayments, errorsPayments])
+  }, [updatedMediaItemObj, newFeaturedPerson, loading, errors, loadingPayments, errorsPayments, stripePaymentForm])
 
 
   const submitButtonIsDisabled = () => {
@@ -125,6 +135,11 @@ const Home = () => {
         Object.keys(updatedMediaItemObj).length > 0 
         && 'dataURL' in updatedMediaItemObj 
         && updatedMediaItemObj.dataURL
+      )
+      ||
+      (
+        showPayments
+        && !(stripePaymentForm.paymentMethodIsValid)
       )
     )
   }
@@ -362,7 +377,7 @@ const Home = () => {
     ) {
       squareCropFileExists = true
     }
-    // console.log('squareCropFileExists ->', squareCropFileExists)
+    console.log('squareCropFileExists ->', squareCropFileExists)
     
 
     // ? Process Payment
@@ -370,9 +385,72 @@ const Home = () => {
       showPayments
       && squareCropFileExists
     ) {
-      // console.log('processing payment')
+      console.log('processing payment')
+      try {
+        // Stripe — Trigger form validation and wallet collection
+        const { error: submitError } = await elements.submit()
+        if (submitError) {
+          // setRegisterErrors(false)
+          setErrorsPayments(submitError)
+          setLoadingPayments(false)
+          return
+        }
+        console.log('payment method is valid')
+        
+        const formToUpload = { ...stripePaymentForm }
 
-      paymentProcessed = true
+        try {
+          const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/create-payment-intent-congratulations/`, formToUpload, {
+            headers: {
+              // Authorization: userIsAuthenticated() ? `Bearer ${getTokenFromLocalStorage()}` : 'Guest',
+            },
+          })
+          console.log('payment intent processed')
+          // console.log('data ->', data)
+          // console.log('data.clientSecret ->', data.clientSecret)
+          // console.log('data.customerId ->', data.customerId)
+
+          const clientSecret = data.clientSecret
+          const customerId = data.customerId
+          // console.log('elements ->', elements)
+          // console.log('cardElement ->', cardElement)
+          // console.log('stripe ->', stripe)
+    
+          const { error: confirmPaymentError } = await stripe.confirmPayment({
+            elements,
+            clientSecret,
+            confirmParams: {
+              return_url: `${process.env.REACT_APP_CLIENT_URL}/`,
+            },
+            redirect: 'if_required',
+          })
+          console.log('payment confirmation occurred')
+          // console.log('confirmPaymentError ->', confirmPaymentError)
+
+          if (confirmPaymentError) {
+            console.log('confirm payment error')
+
+            setErrorsPayments(confirmPaymentError)
+            setLoadingPayments(false)
+          } else {
+            console.log('payment processed successfully')
+            paymentProcessed = true
+          }
+
+        } catch (paymentIntentError) {
+          console.log('Payment Intent Error ->', paymentIntentError)
+
+          setErrorsPayments({ message: 'Payment Processing Errors' })
+          setLoadingPayments(false)
+        }
+
+        
+      } catch (err) {
+        console.log('submit new featured person request error ->', err)
+
+        setErrorsPayments({ message: 'Payment Method Errors' })
+        setLoadingPayments(false)
+      }
     }
 
     // ? Update Image
@@ -510,6 +588,7 @@ const Home = () => {
                   :
                   <Box
                     sx={{
+                      backgroundColor: 'mistyrose',
                       mt: width < positionChangeWidthSm ? 2 : 2,
                       width: '90%', maxWidth: '290px',
                       height: '300px',
@@ -541,55 +620,7 @@ const Home = () => {
 
               {/* Payments */}
               {showPayments &&
-                <Box
-                  sx={{
-                    my: 3,
-                    width: '90%',
-                    maxWidth: '290px',
-                    display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      py: 2,
-                      px: 2,
-                      backgroundColor: 'lightyellow',
-                      borderRadius: '10px',
-                      boxShadow: 3,
-                      width: '100%',
-                      display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
-                    }}
-                  >
-                    {/* Title */}
-                    <Typography
-                      sx={{
-                        mb: 1,
-                        fontWeight: 'bold',
-                        fontSize: '18',
-                      }}
-                    >
-                      Payment Summary
-                    </Typography>
-
-                    {/* Summary */}
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-                      }}
-                    >
-                      <Typography>
-                        Change Featured Person
-                      </Typography>
-
-                      <Typography>
-                        ${priceForChange}
-                      </Typography>
-
-                    </Box>
-                  </Box>
-
-                </Box>
+                <Payment stripePaymentForm={stripePaymentForm} setStripePaymentForm={setStripePaymentForm} stripe={stripe} elements={elements} loadingPayments={loadingPayments} setLoadingPayments={setLoadingPayments} />
               }
 
               
@@ -597,6 +628,7 @@ const Home = () => {
               <Box
                 sx={{
                   mt: 2,
+                  mb: 3,
                   width: '100%',
                   // maxWidth: '250px',
                   display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',

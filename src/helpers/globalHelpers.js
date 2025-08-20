@@ -78,7 +78,7 @@ export const handleChange = (e, setErrors, setFormData, formData) => {
   // console.log('value ->', value)
 
   setErrors(false)
-  setFormData({ ...formData, [name]: (name === 'email' || name === 'emailOfTaker') ? value.toLowerCase() : name === 'entityName' && value[0] === ' ' ? value.trim() : value })
+  setFormData({ ...formData, [name]: value })
   
 }
 
