@@ -12,7 +12,8 @@ export const positionChangeWidthSm = 600
 export const positionChangeWidthMd = 900
 export const positionChangeWidthLg = 1200
 export const iconImageDimension = '115px'
-export const ministepsHeight = '25px' // Height for the ministep/arrow elements
+export const ministepsHeight = '25px'
+export const uploadImageDimension = 512
 
 // Navbar and Footer
 export const navbarHeight = '70px' //Height for the navigation bar

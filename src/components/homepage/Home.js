@@ -4,11 +4,13 @@ import ReactHtmlParser from 'react-html-parser'
 
 import Footer from '../common/Footer.js'
 import PageNavbar from '../common/PageNavbar.js'
+import CropImage from '../common/CropImage.js'
 
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
 import { Link } from '@mui/material'
 import Slide from '@mui/material/Slide'
 
@@ -39,8 +41,23 @@ const Home = () => {
 
   // States
   const [viewIndex, setViewIndex] = useState(0)
+  const [updatedMediaItemObj, setUpdatedMediaItemObj] = useState({})
+  const [newFeaturedPerson, setNewFeaturedPerson] = useState({
+    nameOfFeaturedPerson: '',
+    contact: '',
+  })
+  const [previousFeaturedPerson, setPreviousFeaturedPerson] = useState({
+    nameOfFeaturedPerson: '',
+    contact: '',
+  })
 
 
+
+        
+  useEffect(() => {
+    // console.log('videoThumbnail useEffect runs')
+
+  }, [updatedMediaItemObj, newFeaturedPerson])
 
   // Homepage Body JSX
   const homepageBodyJSX = () => {
@@ -153,9 +170,20 @@ const Home = () => {
     )
   }
 
+  const resetLoadingAndErrors = () => {
+    console.log('resetLoadingAndErrors')
+  }
+
+  const handleUploadImagePressed = () => {
+    console.log('resetLoadingAndErrors')
+  }
 
   const handleCancelPressed = () => {
     setViewIndex(0)
+    setNewFeaturedPerson({
+      nameOfFeaturedPerson: '',
+      contact: '',
+    })
   }
 
   const handleSubmitPressed = () => {
@@ -163,6 +191,52 @@ const Home = () => {
   }
 
   const changeFeaturedPersonViewJSX = () => {
+
+    const handleChangeNewFeaturedPerson = (e) => {
+      const { name, value } = e.target
+
+      setNewFeaturedPerson({ ...newFeaturedPerson, [name]: value })
+    }
+
+    const nameAndContactTextFieldJSX = (name, placeholder) => {
+      return (
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+          }}
+        >
+
+          {/* TextField */}
+          <TextField 
+            variant={'outlined'}
+            name={name}
+            maxLength={50}
+            label={placeholder}
+            // focused={true}
+            aria-label={name}
+            placeholder={placeholder}
+            autoComplete='off'
+            // size={size}
+            value={newFeaturedPerson[name]}
+            onChange={(e) => handleChangeNewFeaturedPerson(e)}
+            color="primary"
+            sx={{ 
+              backgroundColor: 'white',
+              // width: width >= 440 ? 'calc(100% - 120px)' : '95%',
+              // width: width < positionChangeWidthSm ? '90%' : 'calc(48% - 40px)', 
+              width: width < positionChangeWidthSm ? '90%' : newFeaturedPerson[name].length <= 1 ? '48%' : '45%', 
+              maxWidth: newFeaturedPerson[name].length <= 1 ? '290px' : '260px',
+              // maxWidth: '325px', 
+              // ml: '45px', 
+              mt: 1,
+            }}
+          />
+        </Box>
+      )
+    }
+
+
     return (
       <Box 
         sx={{ 
@@ -175,10 +249,55 @@ const Home = () => {
         }}
       >
 
+        {/* Image */}
+        {Object.keys(updatedMediaItemObj).length > 0
+          && 'dataURL' in updatedMediaItemObj 
+          && updatedMediaItemObj.dataURL
+          ?
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+              }}
+            >
+              <CropImage updatedMediaItemObj={updatedMediaItemObj} setUpdatedMediaItemObj={setUpdatedMediaItemObj} resetLoadingAndErrors={resetLoadingAndErrors} width={width} />
+            </Box>
+            :
+            <Box
+              sx={{
+                mt: width < positionChangeWidthSm ? 8 : 8,
+                width: '90%',
+                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+              }}
+            >
+              {standardButton(
+                'Upload Image',
+                'button',
+                'contained',
+                false,
+                'secondary',
+                0,
+                0,
+                0,
+                '290px',
+                '50px',
+                handleUploadImagePressed
+              )}
+            </Box>
+        }
+
+        {/* Name */}
+        {nameAndContactTextFieldJSX('nameOfFeaturedPerson', 'Name')}
+
+
+        {/* Contact */}
+        {nameAndContactTextFieldJSX('contact', 'Contact (email/IG/cell)')}
+
 
         {/* Submit and Cancel Buttons */}
         <Box
           sx={{
+            mt: 2,
             width: '100%',
             // maxWidth: '250px',
             display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
