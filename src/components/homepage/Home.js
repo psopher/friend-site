@@ -368,7 +368,7 @@ const Home = (props) => {
     let imageUpdated = false
     let databaseUpdated = false
 
-    // Create Cropped Image
+    // ? Create Cropped Image
     const newMediaObj = await createCroppedImage()
     // console.log('newMediaObj ->', newMediaObj)
     if (
