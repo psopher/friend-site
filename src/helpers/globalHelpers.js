@@ -89,3 +89,32 @@ export const removeDuplicatesFromArray = (array) => {
 export const noDuplicatesInArray = (array) => {
   return array.length === removeDuplicatesFromArray(array).length
 }
+
+
+
+// One day ago
+export const oneDayAgo = () => {
+  const oneDayAgo = Date.parse(new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * 1))
+  return oneDayAgo
+}
+
+export const oneMinuteAgo = () => {
+  const oneDayAgo = Date.parse(new Date((new Date()).valueOf() - 1000 * 60 * 1))
+  return oneDayAgo
+}
+
+export const dateToNumber = (dateString) => {
+  return Date.parse(dateString)
+}
+
+export const dateIsWithin24Hours = (dateString) => {
+  // console.log('dateString ->', dateString)
+
+  const dateNumber = dateToNumber(dateString)
+  // console.log('dateNumber ->', dateNumber)
+
+  const oneDayAgoNumber = oneDayAgo()
+  // console.log('oneDayAgoNumber ->', oneDayAgoNumber)
+
+  return dateNumber > oneDayAgoNumber
+}

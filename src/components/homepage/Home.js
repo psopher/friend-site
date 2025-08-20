@@ -28,7 +28,7 @@ import { standardButton, socialMediaButtons, arrowElement, addImageWithTextButto
 import { showPayments, priceForChange, featuredDefaultsArray, positionChangeWidthSm, positionChangeWidthMd, navbarHeight, maximumMediaSize, iconImageDimension, footerHeight, pjsBlue, pjsGreen, pjsYellow } from '../../helpers/variableDefaults.js'
 import useWindowDimensions from '../../helpers/windowDimensions.js'
 import { videoInsert } from '../../helpers/videos.js'
-import { reloadView, shuffleArray } from '../../helpers/globalHelpers.js'
+import { reloadView, shuffleArray, dateIsWithin24Hours } from '../../helpers/globalHelpers.js'
 import { portfolioItemsMobileStepperAndArrows } from '../../helpers/mobileSteppers.js'
 import { spin, rock, shakeX, shakeY } from '../../helpers/keyframeAnimations.js'
 import { fileToDataURL, getStartCropImageWidthsAndHeights, updateAWSFileAtURL, returnCroppedImage, urlToImageFile } from '../../helpers/imageHandling.js'
@@ -79,15 +79,14 @@ const Home = () => {
         // console.log('retrievedFeaturedPersonsArray ->', retrievedFeaturedPersonsArray)
         // console.log('retrievedFeaturedPersonsArray length ->', retrievedFeaturedPersonsArray.length)
 
+        // console.log('date is within 24 hours ->', dateIsWithin24Hours(retrievedFeaturedPersonsArray[0].updatedAt))
         if (
           (
             retrievedFeaturedPersonsArray.length > 0
             && Object.keys(retrievedFeaturedPersonsArray[0]).length > 0
+            && 'updatedAt' in retrievedFeaturedPersonsArray[0]
+            && dateIsWithin24Hours(retrievedFeaturedPersonsArray[0].updatedAt)
           )
-          // ||
-          // (
-          //   Add 24 hours since last modified here
-          // )
         ) {
           
           setPreviousFeaturedPerson({ ...retrievedFeaturedPersonsArray[0] })
