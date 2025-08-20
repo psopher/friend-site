@@ -18,7 +18,7 @@ import { reloadView } from '../../helpers/globalHelpers'
 // import { seoPageTags, customAnalyticsEvent } from '../../helpers/analytics'
 
 // Crop Image Page
-const CropImage = ({ updatedMediaItemObj, setUpdatedMediaItemObj, resetLoadingAndErrors, width }) => {
+const CropImage = ({ updatedMediaItemObj, setUpdatedMediaItemObj, loadingPayments, resetLoadingAndErrors, width }) => {
 
   // Navigate
   const navigate = useNavigate()
@@ -45,108 +45,34 @@ const CropImage = ({ updatedMediaItemObj, setUpdatedMediaItemObj, resetLoadingAn
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     // console.log('cropped area percentages ->', croppedArea)
     // console.log('cropped area pixels ->', croppedAreaPixels)
-
-    setUpdatedMediaItemObj({
-      ...updatedMediaItemObj,
-      'squareCrop': {
-        x: croppedAreaPixels.x,
-        y: croppedAreaPixels.y,
-        width: croppedAreaPixels.width,
-        height: croppedAreaPixels.height,
-      },
-    })
-
-  }
-
-  const handleCancelPressed = () => {
-    // console.log('handleCancelPressed runs')
-    if (
-      saveSuccessfulNewMedia
-      // || !saveSuccessfulNewMedia
-    ) { 
-      reloadView()
-    } else {
-      resetLoadingAndErrors()
-      setUpdatedMediaItemObj({})
+    if (!loadingPayments) {
+      setUpdatedMediaItemObj({
+        ...updatedMediaItemObj,
+        'squareCrop': {
+          x: croppedAreaPixels.x,
+          y: croppedAreaPixels.y,
+          width: croppedAreaPixels.width,
+          height: croppedAreaPixels.height,
+        },
+      })
     }
 
-    window.scrollTo(0, 0)
   }
 
-  const handleSavePressed = async (videoFile) => {
-    // console.log('handleSavePressed runs')
-
-    resetLoadingAndErrors()
-
-    // Get Cropped Image
-    setCreatingCrop(true)
-    
-    const croppedDataURL = await returnCroppedImage(
-      updatedMediaItemObj.dataURL,
-      updatedMediaItemObj['squareCrop'].x,
-      updatedMediaItemObj['squareCrop'].y,
-      updatedMediaItemObj['squareCrop'].width,
-      updatedMediaItemObj['squareCrop'].height
-    )
-    // console.log('croppedDataURL ->', croppedDataURL)
-    // const croppedImageWidthAndHeight = await getCurrentImageWidthsAndHeights(croppedDataURL)
-      
-    const newCroppedFile = await urlToImageFile(croppedDataURL, `crop-congratulations-image-square`)
-      
-    const newMediaObj = { ...updatedMediaItemObj }
-      
-      
-    // Set Media Obj with Cropped Data URL
-    newMediaObj['squareCropDataURL'] = croppedDataURL
-    newMediaObj['squareCropFile'] = newCroppedFile
-    newMediaObj['file'] = newCroppedFile
-
-    setUpdatedMediaItemObj({ ...newMediaObj })
-
-    setCreatingCrop(false)
-  }
 
   const cropChange = async (crop) => {
     // console.log('crop ->', crop)
-    setCrop(crop)
+    if (!loadingPayments) {
+      setCrop(crop)
+    }
   }
 
   const zoomChange = async (zoom) => {
-    setZoom(zoom)
+    if (!loadingPayments) {
+      setZoom(zoom)
+    }
   }
 
-  const saveAndCancelButtonsJSX = (cancelDisabled, saveDisabled, handleCancelPressed, handleSavePressed, topMargin, bottomMargin, marginX, cancelColor = 'warning', saveColor = 'primary') => {
-    return (
-      <Box sx={{ mt: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        {standardButton(
-          'Cancel', 
-          'button',
-          'contained',
-          cancelDisabled,
-          cancelColor, 
-          topMargin,
-          bottomMargin,
-          marginX,
-          '80px',
-          '45px',
-          handleCancelPressed
-        )}
-        {standardButton(
-          saveColor === 'error' ? 'Delete' : saveColor === 'secondary' ? 'Next' : 'Save', 
-          'button',
-          'contained',
-          saveDisabled,
-          saveColor, 
-          topMargin,
-          bottomMargin,
-          marginX,
-          '80px',
-          '45px',
-          handleSavePressed
-        )}
-      </Box>
-    )
-  }
 
   return (
     <>
@@ -170,26 +96,6 @@ const CropImage = ({ updatedMediaItemObj, setUpdatedMediaItemObj, resetLoadingAn
             display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
           }}
         >
-          {/* Title */}
-          {/* <Box
-            sx={{
-              mb: 1,
-              width: '100%',
-              display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
-            }}
-          >
-            <Typography
-              sx={{
-                mt: 2,
-                // mb: 1,
-                fontSize: '18px',
-                fontWeight: 'bold',
-                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-              }}
-            >
-              {'Crop'}
-            </Typography>
-          </Box> */}
           
           <Box
             sx={{

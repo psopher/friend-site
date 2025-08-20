@@ -115,14 +115,18 @@ const Home = () => {
   useEffect(() => {
     // console.log('videoThumbnail useEffect runs')
 
-  }, [updatedMediaItemObj, newFeaturedPerson, loading, errors])
+  }, [updatedMediaItemObj, newFeaturedPerson, loading, errors, loadingPayments, errorsPayments])
 
 
   const submitButtonIsDisabled = () => {
-    return !(
-      Object.keys(updatedMediaItemObj).length > 0 
-      && 'dataURL' in updatedMediaItemObj 
-      && updatedMediaItemObj.dataURL
+    return (
+      loadingPayments
+      ||
+      !(
+        Object.keys(updatedMediaItemObj).length > 0 
+        && 'dataURL' in updatedMediaItemObj 
+        && updatedMediaItemObj.dataURL
+      )
     )
   }
 
@@ -337,9 +341,13 @@ const Home = () => {
       contact: '',
     })
     setUpdatedMediaItemObj({})
+
+    window.scrollTo(0, 0)
   }
 
   const handleSubmitPressed = async () => {
+
+    setLoadingPayments(true)
 
     let squareCropFileExists = false
     let paymentProcessed = !showPayments
@@ -418,6 +426,9 @@ const Home = () => {
       console.log('successfully changed featured person')
       reloadView()
     }
+
+
+    // setLoadingPayments(false)
   }
 
   const changeFeaturedPersonViewJSX = () => {
@@ -428,7 +439,7 @@ const Home = () => {
       setNewFeaturedPerson({ ...newFeaturedPerson, [name]: value })
     }
 
-    const nameAndContactTextFieldJSX = (name, placeholder) => {
+    const nameAndContactTextFieldJSX = (name, placeholder, disabled) => {
       return (
         <Box
           sx={{
@@ -440,6 +451,7 @@ const Home = () => {
           {/* TextField */}
           <TextField 
             variant={'outlined'}
+            disabled={disabled}
             name={name}
             maxLength={50}
             label={placeholder}
@@ -494,7 +506,7 @@ const Home = () => {
                       display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
                     }}
                   >
-                    <CropImage updatedMediaItemObj={updatedMediaItemObj} setUpdatedMediaItemObj={setUpdatedMediaItemObj} resetLoadingAndErrors={resetLoadingAndErrors} width={width} />
+                    <CropImage updatedMediaItemObj={updatedMediaItemObj} setUpdatedMediaItemObj={setUpdatedMediaItemObj} loadingPayments={loadingPayments} resetLoadingAndErrors={resetLoadingAndErrors} width={width} />
                   </Box>
                   :
                   <Box
@@ -522,11 +534,11 @@ const Home = () => {
               }
 
               {/* Name */}
-              {nameAndContactTextFieldJSX('nameOfFeaturedPerson', 'Name')}
+              {nameAndContactTextFieldJSX('nameOfFeaturedPerson', 'Name', loadingPayments)}
 
 
               {/* Contact */}
-              {nameAndContactTextFieldJSX('contact', 'Contact (email/IG/cell)')}
+              {nameAndContactTextFieldJSX('contact', 'Contact (email/IG/cell)', loadingPayments)}
 
               {/* Payments */}
               {showPayments &&
@@ -581,7 +593,7 @@ const Home = () => {
                 </Box>
               }
 
-
+              
               {/* Submit and Cancel Buttons */}
               <Box
                 sx={{
@@ -591,35 +603,42 @@ const Home = () => {
                   display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
                 }}
               >
-                {/* Cancel */}
-                {standardButton(
-                  'Cancel',
-                  'button',
-                  'contained',
-                  false,
-                  'warning',
-                  0,
-                  0,
-                  1,
-                  '85px',
-                  '50px',
-                  handleCancelPressed
-                )}
+                {loadingPayments ?
+                  circularSpinnerWithText('uploading changes')
+                  :
+                  <>
+                    {/* Cancel */}
+                    {standardButton(
+                      'Cancel',
+                      'button',
+                      'contained',
+                      loadingPayments,
+                      'warning',
+                      0,
+                      0,
+                      1,
+                      '85px',
+                      '50px',
+                      handleCancelPressed
+                    )}
 
-                {/* Submit */}
-                {standardButton(
-                  'Submit',
-                  'button',
-                  'contained',
-                  submitButtonIsDisabled(),
-                  'secondary',
-                  0,
-                  0,
-                  1,
-                  '85px',
-                  '50px',
-                  handleSubmitPressed
-                )}
+                    {/* Submit */}
+                    {standardButton(
+                      'Submit',
+                      'button',
+                      'contained',
+                      submitButtonIsDisabled(),
+                      'secondary',
+                      0,
+                      0,
+                      1,
+                      '85px',
+                      '50px',
+                      handleSubmitPressed
+                    )}
+                  
+                  </>
+                }
 
               </Box>
             </>
