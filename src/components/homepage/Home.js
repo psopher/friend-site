@@ -416,7 +416,7 @@ const Home = () => {
       && databaseUpdated
     ) {
       console.log('successfully changed featured person')
-      // reloadView()
+      reloadView()
     }
   }
 
