@@ -274,7 +274,7 @@ const Payment = (props) => {
             }}
           >
             <Typography>
-              {`VC Simulation Results`}
+              {`Change Featured Person`}
             </Typography>
             <Typography>
               {/* TK */}
