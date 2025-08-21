@@ -85,8 +85,8 @@ const Home = (props) => {
           (
             retrievedFeaturedPersonsArray.length > 0
             && Object.keys(retrievedFeaturedPersonsArray[0]).length > 0
-            && 'updatedAt' in retrievedFeaturedPersonsArray[0]
-            && dateIsWithin24Hours(retrievedFeaturedPersonsArray[0].updatedAt)
+            // && 'updatedAt' in retrievedFeaturedPersonsArray[0]
+            // && dateIsWithin24Hours(retrievedFeaturedPersonsArray[0].updatedAt)
           )
         ) {
 
