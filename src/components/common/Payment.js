@@ -84,6 +84,7 @@ const Payment = (props) => {
         sx={{
           mt: 1, mb: 0,
           pt: 2, pb: paymentMethodString === 'card' ? 3 : 2,
+          // backgroundColor: 'azure',
           backgroundColor: 'lightyellow',
           width: '100%',
           boxShadow: 3,
@@ -236,7 +237,8 @@ const Payment = (props) => {
         sx={{
           my: 1,
           p: 2,
-          backgroundColor: 'lightyellow',
+          backgroundColor: 'azure',
+          // backgroundColor: 'lightyellow',
           width: '100%',
           boxShadow: 3,
           borderRadius: '5px',
