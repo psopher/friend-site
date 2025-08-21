@@ -118,3 +118,7 @@ export const dateIsWithin24Hours = (dateString) => {
 
   return dateNumber > oneDayAgoNumber
 }
+
+export const createRandomNumber = () => {
+  return Math.ceil(Math.random() * 1000000000)
+}

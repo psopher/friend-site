@@ -29,7 +29,7 @@ import { standardButton, socialMediaButtons, arrowElement, addImageWithTextButto
 import { showPayments, priceForChange, featuredDefaultsArray, positionChangeWidthSm, positionChangeWidthMd, navbarHeight, maximumMediaSize, iconImageDimension, footerHeight, pjsBlue, pjsGreen, pjsYellow } from '../../helpers/variableDefaults.js'
 import useWindowDimensions from '../../helpers/windowDimensions.js'
 import { videoInsert } from '../../helpers/videos.js'
-import { reloadView, shuffleArray, dateIsWithin24Hours } from '../../helpers/globalHelpers.js'
+import { reloadView, shuffleArray, dateIsWithin24Hours, createRandomNumber } from '../../helpers/globalHelpers.js'
 import { portfolioItemsMobileStepperAndArrows } from '../../helpers/mobileSteppers.js'
 import { spin, rock, shakeX, shakeY } from '../../helpers/keyframeAnimations.js'
 import { fileToDataURL, getStartCropImageWidthsAndHeights, updateAWSFileAtURL, returnCroppedImage, urlToImageFile } from '../../helpers/imageHandling.js'
@@ -98,8 +98,11 @@ const Home = (props) => {
             && dateIsWithin24Hours(retrievedFeaturedPersonsArray[0].updatedAt)
           )
         ) {
+
+          const randomNumber = createRandomNumber()
+          const cacheAvoidingURL = `${retrievedFeaturedPersonsArray[0].image}?${randomNumber}`
           
-          setPreviousFeaturedPerson({ ...retrievedFeaturedPersonsArray[0] })
+          setPreviousFeaturedPerson({ ...retrievedFeaturedPersonsArray[0], image: cacheAvoidingURL })
 
           setLoading(false)
 
