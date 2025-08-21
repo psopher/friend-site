@@ -307,7 +307,15 @@ const Home = (props) => {
 
       {/* Change Featured Person View */}
       {viewIndex === 1 && 
-        changeFeaturedPersonViewJSX(newFeaturedPerson, setNewFeaturedPerson, updatedMediaItemObj, setUpdatedMediaItemObj, stripePaymentForm, setStripePaymentForm, stripe, elements, handleCancelPressed, handleSubmitPressed, loadingPayments, setLoadingPayments, loading, resetLoadingAndErrors, width)
+        changeFeaturedPersonViewJSX(
+          newFeaturedPerson, setNewFeaturedPerson, 
+          updatedMediaItemObj, setUpdatedMediaItemObj, 
+          stripePaymentForm, setStripePaymentForm, stripe, elements, 
+          handleCancelPressed, handleSubmitPressed, 
+          loadingPayments, setLoadingPayments, 
+          loading, resetLoadingAndErrors, 
+          width
+        )
       }
 
       {/* Footer */}

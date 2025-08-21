@@ -210,7 +210,14 @@ export const homepageBodyJSX = (previousFeaturedPerson, loading, width) => {
   )
 }
 
-export const changeFeaturedPersonViewJSX = (newFeaturedPerson, setNewFeaturedPerson, updatedMediaItemObj, setUpdatedMediaItemObj, stripePaymentForm, setStripePaymentForm, stripe, elements, handleCancelPressed, handleSubmitPressed, loadingPayments, setLoadingPayments, loading, resetLoadingAndErrors, width) => {
+export const changeFeaturedPersonViewJSX = (
+  newFeaturedPerson, setNewFeaturedPerson, 
+  updatedMediaItemObj, setUpdatedMediaItemObj, 
+  stripePaymentForm, setStripePaymentForm, stripe, elements, 
+  handleCancelPressed, handleSubmitPressed, 
+  loadingPayments, setLoadingPayments, 
+  loading, resetLoadingAndErrors, 
+  width) => {
 
   const handleChangeNewFeaturedPerson = (e) => {
     const { name, value } = e.target
