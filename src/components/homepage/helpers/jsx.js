@@ -35,20 +35,28 @@ export const homepageBodyJSX = (previousFeaturedPerson, loading, width) => {
         // minHeight: `calc(100vh - ${navbarHeight})`, 
         width: '100vw', 
         backgroundColor: 'whitesmoke',
-        display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', 
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', 
       }}
     >
       {loading 
         ?
           circularSpinnerWithText()
           :
-          <>
+          <Box
+            sx={{
+              // backgroundColor: 'yellow',
+              width: '100%',
+              height: '100%',
+              display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
+            }}
+          >
             {/* Hero */}
             <Box
               sx={{
                 mb: 0,
                 width: '100%',
-                display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
+                height: '100%',
+                display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
               }}
             >
               {/* Headshot */}
@@ -204,7 +212,7 @@ export const homepageBodyJSX = (previousFeaturedPerson, loading, width) => {
               </Typography> */}
 
             </Box>
-          </>
+          </Box>
       }
     </Box>
   )
