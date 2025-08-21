@@ -151,7 +151,7 @@ const Home = (props) => {
     let databaseUpdated = false
 
     // ? Create Cropped Image
-    const newMediaObj = await createCroppedImage()
+    const newMediaObj = await createCroppedImage(updatedMediaItemObj)
     // console.log('newMediaObj ->', newMediaObj)
     if (
       'squareCropFile' in newMediaObj
