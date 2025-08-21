@@ -2,6 +2,7 @@ import { yellow, grey, green, blue, cyan, pink   } from '@mui/material/colors'
 
 const getDesignTokens = () => ({
   palette: {
+    // primary: pink,
     primary: green,
     secondary: blue,
     warning: yellow,

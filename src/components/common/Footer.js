@@ -32,7 +32,8 @@ const Footer = ({ contact = 'email@email.com', viewIndex = 0}) => {
         // maxHeight: footerHeight,
         // backgroundColor: 'black',
         // backgroundColor: pjsYellow,
-        backgroundColor: pjsGreen,
+        // backgroundColor: pjsGreen,
+        backgroundColor: 'pink',
         // backgroundColor: pjsBlue,
         display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: width < positionChangeWidthSm ? 'flex-start' : 'center',
       }}
@@ -52,7 +53,8 @@ const Footer = ({ contact = 'email@email.com', viewIndex = 0}) => {
           <Typography
             sx={{
               pb: width < positionChangeWidthSm ? 1 : 0,
-              color: 'whitesmoke',
+              // color: 'whitesmoke',
+              color: 'black',
               // color: pjsBlue,
               fontWeight: 'bold',
             }}

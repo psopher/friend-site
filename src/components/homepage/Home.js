@@ -184,25 +184,89 @@ const Home = (props) => {
                     display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
                   }}
                 >
-                  <Box 
-                    component='img' 
-                    // src={ariHeadshot} 
-                    // src={sunnyHammock} 
-                    // src={logoRainbow} 
-                    src={'image' in previousFeaturedPerson && previousFeaturedPerson.image.length > 0 ? previousFeaturedPerson.image : logoRainbow}
-                    alt='Headshot' 
-                    sx={{ 
-                      height: width > 299 ? 220 : 175, 
-                      width: width > 299 ? 220 : 175,
-                      objectFit: 'cover', 
-                      backgroundColor: 'white',
-                      // backgroundColor: 'orange',
+                  <Box
+                    sx={{
                       boxShadow: 5, 
-                      border: 3, borderRadius: '50%',
-                      borderColor: 'black', 
-                      // animation: `${rock(0, 10, -10, 0)} 3s infinite linear`,
-                    }} 
-                  />
+                      border: 5, borderRadius: '50%',
+                      borderColor: 'red', 
+                      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        // boxShadow: 5, 
+                        border: 5, borderRadius: '50%',
+                        borderColor: 'orange', 
+                        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          // boxShadow: 5, 
+                          border: 5, borderRadius: '50%',
+                          borderColor: 'yellow', 
+                          display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            // boxShadow: 5, 
+                            border: 5, borderRadius: '50%',
+                            borderColor: 'green', 
+                            display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              // boxShadow: 5, 
+                              border: 5, borderRadius: '50%',
+                              borderColor: 'blue', 
+                              display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                // boxShadow: 5, 
+                                border: 5, borderRadius: '50%',
+                                borderColor: 'purple', 
+                                display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                              }}
+                            >
+                              {/* <Box
+                                sx={{
+                                  // boxShadow: 5, 
+                                  border: 5, borderRadius: '50%',
+                                  borderColor: 'pink', 
+                                  display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center',
+                                }}
+                              > */}
+                              <Box 
+                                component='img' 
+                                // src={ariHeadshot} 
+                                // src={sunnyHammock} 
+                                // src={logoRainbow} 
+                                src={'image' in previousFeaturedPerson && previousFeaturedPerson.image.length > 0 ? previousFeaturedPerson.image : logoRainbow}
+                                alt='Headshot' 
+                                sx={{ 
+                                  height: width > 299 ? 220 : 175, 
+                                  width: width > 299 ? 220 : 175,
+                                  objectFit: 'cover', 
+                                  backgroundColor: 'white',
+                                  // backgroundColor: 'orange',
+                                  // boxShadow: 5, 
+                                  border: 3, 
+                                  borderColor: 'black',
+                                  borderRadius: '50%', 
+                                  // animation: `${rock(0, 10, -10, 0)} 3s infinite linear`,
+                                }} 
+                              />
+                              {/* </Box> */}
+                            </Box> 
+                          </Box>
+                        </Box> 
+                      </Box>
+                    </Box>
+                  </Box>
                 </Box>
 
                 {/* Name */}
@@ -212,7 +276,8 @@ const Home = (props) => {
                     mt: 0, pb: 0, width: '90%', 
                     fontSize: '20px',
                     fontWeight: 'bold',
-                    color: pjsGreen,
+                    // color: pjsGreen,
+                    color: 'purple',
                   }}
                 >
                   {previousFeaturedPerson.nameOfFeaturedPerson}
@@ -225,7 +290,8 @@ const Home = (props) => {
                     mt: 0, mb: 0, width: '90%', 
                     fontSize: '16px',
                     fontWeight: 'bold',
-                    color: pjsBlue,
+                    // color: pjsBlue,
+                    color: 'dodgerblue',
                   }}
                 >
                   Is Gay
@@ -239,6 +305,7 @@ const Home = (props) => {
                     fontSize: '16px',
                     fontWeight: 'bold',
                     color: pjsYellow,
+                    // color: 'orange',
                   }}
                 >
                   ...Very gay
