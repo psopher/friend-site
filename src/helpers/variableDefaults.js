@@ -21,7 +21,7 @@ export const maximumMediaSize = 10000000
 
 // Navbar and Footer
 export const navbarHeight = '70px' //Height for the navigation bar
-export const footerHeight = '150px' //Height for the footer bar
+export const footerHeight = '170px' //Height for the footer bar
 
 // Colors
 export const pjsGreen = '#00643C' // Paris Metro Green

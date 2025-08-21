@@ -34,7 +34,7 @@ const Footer = ({ contact = 'email@email.com', viewIndex = 0}) => {
         // backgroundColor: pjsYellow,
         backgroundColor: pjsGreen,
         // backgroundColor: pjsBlue,
-        display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+        display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: width < positionChangeWidthSm ? 'flex-start' : 'center',
       }}
     >
       <Box
@@ -42,7 +42,8 @@ const Footer = ({ contact = 'email@email.com', viewIndex = 0}) => {
           // px: width < positionChangeWidthSm ? 1 : 0,
           width: '95%',
           height: '100%',
-          display: 'flex', flexDirection: width < positionChangeWidthSm ? 'column' : 'row', justifyContent: 'center', alignItems: 'center',
+          py: 2,
+          display: 'flex', flexDirection: width < positionChangeWidthSm ? 'column' : 'row', justifyContent: width < positionChangeWidthSm ? 'center' : 'center', alignItems: width < positionChangeWidthSm ? 'center' : 'center',
         }}
       >
 
