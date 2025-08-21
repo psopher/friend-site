@@ -6,7 +6,7 @@
 // Variable Defaults
 
 // Payments
-export const showPayments = false
+export const showPayments = true
 export const priceForChange = 5
 
 // Widths and Heights
