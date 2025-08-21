@@ -14,8 +14,6 @@ export const positionChangeHeightSm = 700
 export const positionChangeWidthSm = 600
 export const positionChangeWidthMd = 900
 export const positionChangeWidthLg = 1200
-export const iconImageDimension = '115px'
-export const ministepsHeight = '25px'
 export const uploadImageDimension = 512
 export const maximumMediaSize = 10000000
 
